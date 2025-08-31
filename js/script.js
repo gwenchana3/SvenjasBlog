@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // For now, use fallback titles - in future this could fetch from each file
             let title = 'Blog Post';
             if (url.includes('002_GoogleCalLinks')) title = 'Google Cal Magic';
-            if (url.includes('001_Brockhaus')) title = 'Brockhouse Pages found';
+            if (url.includes('001_Brockhaus')) title = 'Brockhaus Pages found';
             
             allBlogPosts.push({ url, title });
         }

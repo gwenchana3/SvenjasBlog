@@ -35,7 +35,7 @@
 }
 
 /* Light theme - darken the background image within the text only */
-[data-theme="light"] .background-text-overlay {text-color: #55555
+[data-theme="light"] .background-text-overlay {
   filter: brightness(1.2) contrast(0.7) saturate(3);
 }
 
