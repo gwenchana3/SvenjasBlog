@@ -9,12 +9,14 @@
   
   /* Social Media Links - Change these to update all social links globally */
   --social-itch: 'https://onesvenja.itch.io';
+  --social-artstation: 'https://www.artstation.com/snow_call';
   --social-instagram: 'https://www.instagram.com/svenjaschmitttm/';
   --social-email: 'mailto:sv_schmitt@protonmail.com';
   --social-linkedin: 'https://www.linkedin.com/in/svenja-schmitt/';
   
   /* UI Control Variables */
   --contact-button-enabled: 0; /* Set to 0 to hide contact button, 1 to show */
+  --copyright-text: '© 2025 Svenja Schmitt. All rights reserved.'; /* Change this to update copyright globally */
   
   /* Background Image Settings - Dark Theme */
   --background-image-dark: '../assets/images/background/background2.png';  /* Background image path for dark theme */
@@ -31,6 +33,34 @@
   --background-color: #f5f5f5;  /* Light background */
 
   --icon-filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+}
+
+/* Light theme - darken the background image within the text only */
+[data-theme="light"] .background-text-overlay {
+  filter: brightness(1.2) contrast(0.7) saturate(3);
+}
+
+/* About section paragraph styling */
+.about-section-content > div {
+  padding: 12px 16px;
+  border-left: 3px solid var(--text-color);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.about-section-content > div:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+
+/* Light theme specific styling for about paragraphs */
+[data-theme="light"] .about-section-content > div {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .about-section-content > div:hover {
+  background-color: rgba(0, 0, 0, 0.06);
 }
 
 /* Icons */
@@ -186,6 +216,66 @@ a.button:hover {
   margin-bottom: 20px;
 }
 
+/* Blog Navigation Buttons */
+.blog-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 0;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  background: none;
+  border: 3px solid var(--text-color);
+  border-radius: 50px;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms ease-in-out;
+  position: relative;
+}
+
+/* Different hover effects for different nav buttons */
+.nav-button.home-button:hover {
+  transform: rotate(15deg);
+}
+
+.nav-button.nav-button-with-text:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.nav-button.nav-button-with-text:hover .nav-button-text {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  filter: var(--icon-filter);
+  opacity: 0.8;
+}
+
+/* Navigation button with text */
+.nav-button-with-text {
+  padding: 8px 16px;
+  border-radius: 50px;
+  gap: 8px;
+  min-width: fit-content;
+}
+
+.nav-button-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
 /* Link Styling */
 a.no-underline {
   text-decoration: none;
@@ -201,5 +291,19 @@ a.no-underline:hover {
 @media only screen and (max-width: 800px) {
   #footer {
     padding: 20px 20px;
+  }
+  
+  .blog-navigation {
+    padding: 15px 20px;
+    margin-top: 70px;
+  }
+  
+  .nav-button {
+    padding: 8px;
+  }
+  
+  .nav-icon {
+    width: 18px;
+    height: 18px;
   }
 }

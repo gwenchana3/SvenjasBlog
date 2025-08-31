@@ -8,8 +8,6 @@
   For every new blog post you add, make a copy of this file in the
   'BlogPages' folder with a name related to the blog post.
 -->
-
-<!-- Todo: Background; Impressum; Icons;-->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -24,6 +22,21 @@
     <link rel="stylesheet" href="../css/utilities.css">
 
 		<script defer src="../js/script.js"></script>
+		
+		<!-- BLOG POST METADATA -->
+		<style>
+		  :root {
+		    /* Blog Post Info */
+		    --blog-title: 'Brockhouse Pages found';
+		    --blog-description: 'Elit pellentesque habitant morbi tristique senectus et netus et. Elementum tempus egestas sed sed risus pretium quam. Nibh ipsum.';
+		    --blog-image: '../assets/images/Img/code.jpeg';
+		    --blog-url: 'Blog%23001_Brockhaus.html';
+		    
+		    /* Navigation */
+		    --blog-prev-url: ''; /* No previous post (this is the oldest) */
+		    --blog-next-url: 'Blog%23002_GoogleCalLinks.html'; /* Next post */
+		  }
+		</style>
 	</head>
 	<body>
     <!-- NAVBAR -->
@@ -32,9 +45,6 @@
         <span class="nav-title">Svenja's Blog</span>
       </a>
       <div class="nav-buttons">
-        <a class="button" href="">
-          <span class="button-text">Contact Me</span>
-        </a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
           <img src="../assets/icons/moon.svg" class="theme-icon" id="theme-icon" alt="Theme toggle">
         </button>
@@ -117,8 +127,26 @@
       </div>
     </div>
 
+    <!-- BLOG NAVIGATION -->
+    <div class="blog-navigation">
+      <button class="nav-button nav-button-with-text" id="prev-button">
+        <img src="../assets/icons/arrow-right.svg" class="nav-icon" alt="Previous" style="transform: scaleX(-1);">
+        <span class="nav-button-text" id="prev-title">Loading...</span>
+      </button>
+      <button class="nav-button home-button" onclick="window.location.href='../index.html'">
+        <img src="../assets/icons/home.svg" class="nav-icon" alt="Home">
+      </button>
+      <button class="nav-button nav-button-with-text" id="next-button">
+        <span class="nav-button-text" id="next-title">Loading...</span>
+        <img src="../assets/icons/arrow-right.svg" class="nav-icon" alt="Next">
+      </button>
+    </div>
+
     <!-- FOOTER -->
     <div id="footer">
+      <a class="icon-link" target="_blank" href="">
+        <image src="../assets/icons/artstation.svg" class="footer-icon"/>
+      </a>
       <a class="icon-link" target="_blank" href="">
         <image src="../assets/icons/itch.svg" class="footer-icon"/>
       </a>
@@ -131,6 +159,11 @@
       <a class="icon-link" target="_blank" href="">
         <image src="../assets/icons/linkedin.svg" class="footer-icon"/>
       </a>
+    </div>
+    
+    <!-- COPYRIGHT -->
+    <div style="text-align: center; padding: 20px; font-size: 14px; opacity: 0.7;">
+      © Loading...
     </div>
 
 	</body>

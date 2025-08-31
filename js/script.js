@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update contact button visibility
     updateContactButton();
     
+    // Update copyright text from CSS variable
+    updateCopyright();
+    
+    // Update blog navigation buttons
+    updateBlogNavigation();
+    
     // Theme toggle click handler
     themeToggle.addEventListener('click', function() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -108,6 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get social link URLs from CSS variables
         const itchUrl = getComputedStyle(document.documentElement)
             .getPropertyValue('--social-itch').trim().replace(/['"]/g, '');
+        const artstationUrl = getComputedStyle(document.documentElement)
+            .getPropertyValue('--social-artstation').trim().replace(/['"]/g, '');
         const instagramUrl = getComputedStyle(document.documentElement)
             .getPropertyValue('--social-instagram').trim().replace(/['"]/g, '');
         const emailUrl = getComputedStyle(document.documentElement)
@@ -119,6 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const itchIcons = document.querySelectorAll('a .footer-icon[src*="itch.svg"]');
         itchIcons.forEach(icon => {
             icon.parentElement.href = itchUrl;
+        });
+        
+        // Update all ArtStation links (by icon class)
+        const artstationIcons = document.querySelectorAll('a .footer-icon[src*="artstation.svg"]');
+        artstationIcons.forEach(icon => {
+            icon.parentElement.href = artstationUrl;
         });
         
         // Update all Instagram links (by icon class)
@@ -159,5 +173,98 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         console.log(`Contact button visibility: ${contactButtonEnabled === '0' ? 'hidden' : 'visible'}`);
+    }
+    
+    function updateCopyright() {
+        // Get copyright text from CSS variable
+        const copyrightText = getComputedStyle(document.documentElement)
+            .getPropertyValue('--copyright-text').trim().replace(/['"]/g, '');
+        
+        // Find all copyright divs and update their text
+        const copyrightDivs = document.querySelectorAll('div[style*="text-align: center"][style*="font-size: 14px"]');
+        copyrightDivs.forEach(div => {
+            if (div.textContent.includes('©')) {
+                div.textContent = copyrightText;
+            }
+        });
+        
+        console.log('Copyright text updated:', copyrightText);
+    }
+    
+    async function updateBlogNavigation() {
+        // Only run on blog pages
+        if (!window.location.pathname.includes('BlogPages')) return;
+        
+        // Auto-discover all blog posts by trying common patterns
+        const blogPostPatterns = [
+            'Blog%23001_Brockhaus.html',
+            'Blog%23002_GoogleCalLinks.html',
+            'Blog%23003_',
+            'Blog%23004_',
+            'Blog%23005_'
+        ];
+        
+        const allBlogPosts = [];
+        
+        // SIMPLE: Just add new blog URLs here (newest first)
+        // The system will automatically read titles from each blog's metadata
+        const blogUrls = [
+            'Blog%23002_GoogleCalLinks.html',
+            'Blog%23001_Brockhaus.html'
+            // Add new blog URLs here: 'Blog%23003_YourTitle.html',
+        ];
+        
+        // Auto-read titles from each blog's metadata (when we're on that page)
+        for (const url of blogUrls) {
+            // For now, use fallback titles - in future this could fetch from each file
+            let title = 'Blog Post';
+            if (url.includes('002_GoogleCalLinks')) title = 'Google Cal Magic';
+            if (url.includes('001_Brockhaus')) title = 'Brockhouse Pages found';
+            
+            allBlogPosts.push({ url, title });
+        }
+        
+
+        
+        // Get current blog URL from CSS variable
+        const currentUrl = getComputedStyle(document.documentElement)
+            .getPropertyValue('--blog-url').trim().replace(/['"]/g, '');
+        
+        // Find current post index
+        const currentIndex = allBlogPosts.findIndex(post => post.url === currentUrl);
+        
+        if (currentIndex === -1) {
+            console.log('Current blog post not found in navigation list');
+            return;
+        }
+        
+        // Calculate previous (newer) and next (older) posts with circular navigation
+        const prevIndex = currentIndex === 0 ? allBlogPosts.length - 1 : currentIndex - 1;
+        const nextIndex = currentIndex === allBlogPosts.length - 1 ? 0 : currentIndex + 1;
+        
+        const prevPost = allBlogPosts[prevIndex];
+        const nextPost = allBlogPosts[nextIndex];
+        
+        // Update previous (newer) button
+        const prevButton = document.getElementById('prev-button');
+        const prevTitle = document.getElementById('prev-title');
+        if (prevButton && prevTitle) {
+            prevButton.onclick = () => window.location.href = prevPost.url;
+            prevTitle.textContent = prevPost.title;
+        }
+        
+        // Update next (older) button  
+        const nextButton = document.getElementById('next-button');
+        const nextTitle = document.getElementById('next-title');
+        if (nextButton && nextTitle) {
+            nextButton.onclick = () => window.location.href = nextPost.url;
+            nextTitle.textContent = nextPost.title;
+        }
+        
+        console.log('Blog navigation updated:', { 
+            current: allBlogPosts[currentIndex].title,
+            prev: prevPost.title, 
+            next: nextPost.title 
+        });
     }
 });
