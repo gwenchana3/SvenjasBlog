@@ -7,13 +7,80 @@ html {
   -webkit-text-size-adjust: none;
   -moz-text-size-adjust: none;
   -ms-text-size-adjust: none;
+  position: relative;
 }
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  position: relative;
+  min-height: 100vh;
 }
+
+/* Beautiful gradient overlay */
+html::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(ellipse 800px 1200px at 0% 0%, 
+    var(--gradient-color) 0%, 
+    var(--gradient-color) 0.05%, 
+    var(--gradient-color) 0.1%, 
+    var(--background-color) 60%, 
+    var(--background-color) 70%, 
+    var(--background-color) 100%);
+  opacity: calc(var(--gradient-opacity) * var(--gradient-enabled));
+  pointer-events: none;
+  z-index: -1;
+  /* Fix flickering */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Background image overlay - sits on top of gradient and solid background */
+html::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--current-background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: var(--current-background-opacity);
+  pointer-events: none;
+  z-index: -1;
+  /* Ensure smooth rendering */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Alternative: If still flickering, uncomment this noise overlay approach */
+/*
+html::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>');
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.3;
+}
+*/
 
 
 
@@ -34,7 +101,7 @@ body {
 
 #portfolio-header {
   display: flex;
-  gap: 20px;
+  gap: 100px;
   align-items: center;
 }
 
@@ -45,9 +112,21 @@ body {
   flex-basis: 50%;
 }
 
+#portfolio-header-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  flex-basis: 50%;
+}
+
 .portfolio-header-image {
   width: 100%;
-  height: auto;
+  height: 400px; /* Fixed height for square aspect ratio */
+  object-fit: cover; /* Crops image to fit square */
+  object-position: center; /* Centers the crop */
+  border: 3px solid var(--text-color);
+  border-radius: 50px;
+  padding: 8px;
 }
 
 #portfolio-header-text-container {
@@ -55,6 +134,13 @@ body {
   flex-direction: column;
   gap: 34px;
   flex-basis: 50%;
+}
+
+/*:This is the gap between the text-header and the text*/
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 
@@ -97,21 +183,24 @@ body {
       max-width: calc((100% - 32px) / 3);
       display: flex;
       flex-direction: column;
-      gap: 34px;
+      gap: 20px;
     }
 
     .project-card-text-container {
       flex-direction: column;
       display: flex;
-      gap: 16px
+      gap: 10px
     }
 
     .project-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      object-position: center;
-    }
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border: 3px solid var(--text-color);
+  border-radius: 20px;
+  padding: 8px;
+}
 
 
 
@@ -201,6 +290,12 @@ body {
 
   #portfolio-header {
     flex-direction: column;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .portfolio-header-image {
+    height: 300px; /* Smaller square for mobile */
   }
 
   .project-card {
