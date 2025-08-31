@@ -17,8 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update profile image and favicon from CSS variable
     updateProfileImages();
     
-    // Update background image from CSS variable
+    // Update background image from CSS variable - FORCE UPDATE
     updateBackgroundImage();
+    
+    // Force background image update after a small delay to ensure CSS variables are loaded
+    setTimeout(() => {
+        updateBackgroundImage();
+        console.log('Forced background image update for', currentTheme);
+    }, 100);
     
     // Update social links from CSS variables
     updateSocialLinks();
@@ -92,6 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.style.setProperty('--current-background-opacity', backgroundOpacity);
         
         console.log(`Background updated for ${currentTheme} theme: ${backgroundImagePath} with opacity ${backgroundOpacity}`);
+        console.log('CSS variables set:', {
+            '--current-background-image': `url(${backgroundImagePath})`,
+            '--current-background-opacity': backgroundOpacity
+        });
     }
     
     function updateSocialLinks() {

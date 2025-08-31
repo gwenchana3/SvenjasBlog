@@ -19,22 +19,9 @@ body {
   min-height: 100vh;
 }
 
-/* Beautiful gradient overlay - DISABLED */
-html::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: none !important;
-  opacity: 0 !important;
-  pointer-events: none;
-  z-index: -1;
-  display: none !important;
-}
 
-/* Background image overlay - sits on top of gradient and solid background */
+
+/* Background image overlay - sits on top of solid background */
 html::after {
   content: '';
   position: absolute;
