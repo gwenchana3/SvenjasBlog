@@ -19,7 +19,8 @@ body {
   min-height: 100vh;
 }
 
-/* Beautiful gradient overlay */
+/* Beautiful gradient overlay - TEMPORARILY DISABLED */
+/*
 html::before {
   content: '';
   position: absolute;
@@ -37,11 +38,11 @@ html::before {
   opacity: calc(var(--gradient-opacity) * var(--gradient-enabled));
   pointer-events: none;
   z-index: -1;
-  /* Fix flickering */
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: transform;
 }
+*/
 
 /* Background image overlay - sits on top of gradient and solid background */
 html::after {
