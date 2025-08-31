@@ -87,20 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const backgroundOpacity = getComputedStyle(document.documentElement)
             .getPropertyValue(backgroundOpacityVar).trim();
         
-        // Determine the correct path based on current page location
-        const isBlogPage = window.location.pathname.includes('BlogPages');
-        let finalImagePath = backgroundImagePath;
-        
-        // Adjust path for blog pages
-        if (isBlogPage && backgroundImagePath.startsWith('./')) {
-            finalImagePath = '../' + backgroundImagePath.substring(2);
-        }
-        
         // Set the current background image and opacity as CSS custom properties
-        document.documentElement.style.setProperty('--current-background-image', `url(${finalImagePath})`);
+        document.documentElement.style.setProperty('--current-background-image', `url(${backgroundImagePath})`);
         document.documentElement.style.setProperty('--current-background-opacity', backgroundOpacity);
         
-        console.log(`Background updated for ${currentTheme} theme: ${finalImagePath} with opacity ${backgroundOpacity}`);
+        console.log(`Background updated for ${currentTheme} theme: ${backgroundImagePath} with opacity ${backgroundOpacity}`);
     }
     
     function updateSocialLinks() {

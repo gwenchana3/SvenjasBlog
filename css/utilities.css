@@ -19,11 +19,11 @@
   --contact-button-enabled: 0; /* Set to 0 to hide contact button, 1 to show */
   
   /* Background Image Settings - Dark Theme */
-  --background-image-dark: './assets/images/background/background2.png';  /* Background image path for dark theme */
+  --background-image-dark: '../assets/images/background/background2.png';  /* Background image path for dark theme */
   --background-image-opacity-dark: 0.2; /* Background image opacity for dark theme */
   
   /* Background Image Settings - Light Theme */
-  --background-image-light: './assets/images/background/background1.png';  /* Background image path for light theme */
+  --background-image-light: '../assets/images/background/background1.png';  /* Background image path for light theme */
   --background-image-opacity-light: 0.2; /* Background image opacity for light theme */
 }
 
