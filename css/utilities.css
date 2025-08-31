@@ -207,3 +207,13 @@ a.no-underline:hover {
     padding: 20px 20px;
   }
 }
+
+/* Fallback styles for when JavaScript fails to load */
+.no-js .theme-toggle {
+  display: none;
+}
+
+.no-js .icon-link {
+  pointer-events: none;
+  opacity: 0.5;
+}

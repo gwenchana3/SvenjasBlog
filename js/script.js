@@ -6,25 +6,31 @@ if (document.getElementById('my-work-link')) {
 
 // Theme switcher functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    
-    // Check for saved theme preference or default to dark
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-    
-    // Update profile image and favicon from CSS variable
-    updateProfileImages();
-    
-    // Update background image from CSS variable
-    updateBackgroundImage();
-    
-    // Update social links from CSS variables
-    updateSocialLinks();
-    
-    // Update contact button visibility
-    updateContactButton();
+    try {
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        if (!themeToggle || !themeIcon) {
+            console.warn('Theme toggle elements not found');
+            return;
+        }
+        
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        // Update profile image and favicon from CSS variable
+        updateProfileImages();
+        
+        // Update background image from CSS variable
+        updateBackgroundImage();
+        
+        // Update social links from CSS variables
+        updateSocialLinks();
+        
+        // Update contact button visibility
+        updateContactButton();
     
     // Theme toggle click handler
     themeToggle.addEventListener('click', function() {
@@ -149,5 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         console.log(`Contact button visibility: ${contactButtonEnabled === '0' ? 'hidden' : 'visible'}`);
+    }
+    } catch (error) {
+        console.error('Error initializing theme and social features:', error);
     }
 });
