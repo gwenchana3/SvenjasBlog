@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const themeIcon = document.getElementById('theme-icon');
         
         if (!themeToggle || !themeIcon) {
-            console.warn('Theme toggle elements not found');
             return;
         }
         
@@ -32,21 +31,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update contact button visibility
         updateContactButton();
     
-    // Theme toggle click handler
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
-        // Update theme
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        // Update icon
-        updateThemeIcon(newTheme);
-        
-        // Update background image for new theme
-        updateBackgroundImage();
-    });
+        // Theme toggle click handler
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            // Update theme
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon
+            updateThemeIcon(newTheme);
+            
+            // Update background image for new theme
+            updateBackgroundImage();
+        });
     
     function updateThemeIcon(theme) {
         // Determine the correct path based on current page location
@@ -97,7 +96,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.style.setProperty('--current-background-image', `url(${backgroundImagePath})`);
         document.documentElement.style.setProperty('--current-background-opacity', backgroundOpacity);
         
-        console.log(`Background updated for ${currentTheme} theme: ${backgroundImagePath} with opacity ${backgroundOpacity}`);
+        // Also update body background for better compatibility
+        document.body.style.backgroundImage = `url(${backgroundImagePath})`;
+        document.body.style.opacity = '1';
+        
+
     }
     
     function updateSocialLinks() {
@@ -135,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon.parentElement.href = linkedinUrl;
         });
         
-        console.log('Social links updated from CSS variables');
+
     }
     
     function updateContactButton() {
@@ -154,9 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        console.log(`Contact button visibility: ${contactButtonEnabled === '0' ? 'hidden' : 'visible'}`);
+
     }
     } catch (error) {
-        console.error('Error initializing theme and social features:', error);
+        // Silent fail for production
     }
 });
