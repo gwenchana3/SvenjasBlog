@@ -6,46 +6,41 @@ if (document.getElementById('my-work-link')) {
 
 // Theme switcher functionality
 document.addEventListener('DOMContentLoaded', function() {
-    try {
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        
-        if (!themeToggle || !themeIcon) {
-            return;
-        }
-        
-        // Check for saved theme preference or default to dark
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
-        
-        // Update profile image and favicon from CSS variable
-        updateProfileImages();
-        
-        // Update background image from CSS variable
-        updateBackgroundImage();
-        
-        // Update social links from CSS variables
-        updateSocialLinks();
-        
-        // Update contact button visibility
-        updateContactButton();
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
     
-        // Theme toggle click handler
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            // Update theme
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Update icon
-            updateThemeIcon(newTheme);
-            
-            // Update background image for new theme
-            updateBackgroundImage();
-        });
+    // Check for saved theme preference or default to dark
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    
+    // Update profile image and favicon from CSS variable
+    updateProfileImages();
+    
+    // Update background image from CSS variable
+    updateBackgroundImage();
+    
+    // Update social links from CSS variables
+    updateSocialLinks();
+    
+    // Update contact button visibility
+    updateContactButton();
+    
+    // Theme toggle click handler
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        // Update theme
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update icon
+        updateThemeIcon(newTheme);
+        
+        // Update background image for new theme
+        updateBackgroundImage();
+    });
     
     function updateThemeIcon(theme) {
         // Determine the correct path based on current page location
@@ -92,15 +87,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const backgroundOpacity = getComputedStyle(document.documentElement)
             .getPropertyValue(backgroundOpacityVar).trim();
         
+        // Determine the correct path based on current page location
+        const isBlogPage = window.location.pathname.includes('BlogPages');
+        let finalImagePath = backgroundImagePath;
+        
+        // Adjust path for blog pages
+        if (isBlogPage && backgroundImagePath.startsWith('./')) {
+            finalImagePath = '../' + backgroundImagePath.substring(2);
+        }
+        
         // Set the current background image and opacity as CSS custom properties
-        document.documentElement.style.setProperty('--current-background-image', `url(${backgroundImagePath})`);
+        document.documentElement.style.setProperty('--current-background-image', `url(${finalImagePath})`);
         document.documentElement.style.setProperty('--current-background-opacity', backgroundOpacity);
         
-        // Also update body background for better compatibility
-        document.body.style.backgroundImage = `url(${backgroundImagePath})`;
-        document.body.style.opacity = '1';
-        
-
+        console.log(`Background updated for ${currentTheme} theme: ${finalImagePath} with opacity ${backgroundOpacity}`);
     }
     
     function updateSocialLinks() {
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             icon.parentElement.href = linkedinUrl;
         });
         
-
+        console.log('Social links updated from CSS variables');
     }
     
     function updateContactButton() {
@@ -157,9 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-
-    }
-    } catch (error) {
-        // Silent fail for production
+        console.log(`Contact button visibility: ${contactButtonEnabled === '0' ? 'hidden' : 'visible'}`);
     }
 });

@@ -23,7 +23,7 @@
   --background-image-opacity-dark: 0.2; /* Background image opacity for dark theme */
   
   /* Background Image Settings - Light Theme */
-  --background-image-light: './assets/images/background/background2.png';  /* Background image path for light theme */
+  --background-image-light: './assets/images/background/background1.png';  /* Background image path for light theme */
   --background-image-opacity-light: 0.2; /* Background image opacity for light theme */
 }
 
@@ -121,7 +121,7 @@ a.icon-link:hover {
 @media only screen and (max-width: 800px) {
   .navbar {
     padding: 20px 20px;
-    background-color: transparent;
+    background-color: var(--background-color);
   }
   
   .nav-buttons {
@@ -207,4 +207,3 @@ a.no-underline:hover {
     padding: 20px 20px;
   }
 }
-
